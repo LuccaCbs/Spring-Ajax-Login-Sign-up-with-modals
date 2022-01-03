@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax Example</title>
+
+    <span th:insert="fragments.html :: links"></span>
+</head>
+
+<body>
+    <span th:insert="fragments.html :: navBar"></span>
+
+    <div class="container">
+
+        <div class="container" sec:authorize="!isAuthenticated()">
+            <h2>Not logged in yet</h2>
+        </div>
+
+        <div class="container" sec:authorize="hasRole('ROLE_CLIENT')">
+            <h2>Login Successfull as a Client</h2>
+        </div>
+        <div class="container" sec:authorize="hasRole('ROLE_ADMIN')">
+            <h2>Login Successfull as an Admin</h2>
+        </div>
+        
+        <span th:insert="fragments.html :: modal-user"></span>
+    
+        <span th:insert="fragments.html :: modal-admin"></span>
+
+        <span th:insert="fragments.html :: modal-login"></span>
+
+    </div>
+
+</body>
+<script src="/js/jquery-3.6.0.js" th:inline="javascript"></script>
+<script src="/js/index.js" th:inline="javascript">
+</script>
+<script src="/js/admin-form-sign-up.js" sec:authorize="hasRole('ROLE_ADMIN')"></script>
+<script src="/js/user-form-sign-up.js" sec:authorize="!hasRole('ROLE_CLIENT')"></script>
+<script src="/js/user-form-login.js" sec:authorize="!isAuthenticated()"></script>
+
+
+</html>
